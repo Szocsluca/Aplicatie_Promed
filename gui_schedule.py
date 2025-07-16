@@ -4,7 +4,7 @@ import copy
 from Promed import schedule_day, Doctor, Assistant, Cabinet, Appointment
 from read_csv import write_doctors, write_appointments, read_appointments
 
-# Data fixă pentru care lucrăm (poți adapta sau primi ca parametru)
+# Data fixă pentru care lucrăm (in varianta finala se va putea selecta data )
 TARGET_DATE = "2025-04-25"
 
 def run_gui(
@@ -15,10 +15,10 @@ def run_gui(
     opening_hour: int = 8,
     closing_hour: int = 17,
     slot_minutes: int = 30,
-    program_csv: str = "Program.csv",       # nou
-    doctors_csv: str = "Medici.csv"         # nou
+    program_csv: str = "Program.csv",       
+    doctors_csv: str = "Medici.csv"         
 ):
-    # schedule curent și precedent (pentru diff)
+   
     schedule = copy.deepcopy(initial_schedule)
     previous_schedule = None
     populate_funcs = {}
@@ -29,7 +29,6 @@ def run_gui(
     root.columnconfigure(0, weight=1)
     root.rowconfigure(2, weight=1)
 
-    # ── Stil Treeview ─────────────────────────────────────────────
     style = ttk.Style()
     style.theme_use('clam')
     style.configure('Treeview', rowheight=35, font=('Segoe UI', 10))
@@ -40,14 +39,12 @@ def run_gui(
               background=[('selected', '#347083')],
               foreground=[('selected', 'white')])
 
-    # Titlu
     ttk.Label(root,
               text="📅 Program Doctori & Asistente",
               font=('Segoe UI', 16, 'bold'),
               anchor='center')\
         .grid(row=0, column=0, pady=(10,0))
 
-    # ── Bară de controale ───────────────────────────────────────
     ctrl = ttk.Frame(root, padding=5)
     ctrl.grid(row=1, column=0, sticky="ew", padx=10)
     for i in range(9): ctrl.columnconfigure(i, weight=0)
@@ -78,7 +75,6 @@ def run_gui(
     btn_delete = ttk.Button(ctrl, text="Șterge programare")
     btn_delete.grid(row=0, column=7, padx=5)
 
-    # ── Notebook ────────────────────────────────────────────
     notebook = ttk.Notebook(root)
     notebook.grid(row=2, column=0, sticky="nsew", padx=10, pady=(0,10))
 
@@ -98,7 +94,6 @@ def run_gui(
         if kind == "doctors":
             filter_combo = combo
 
-        # colonă diferită pentru fiecare tab
         if kind == "doctors":
             cols = ("Persoană","Loc/Cabinet","Începe","Se termină","Asistentă","Modificări")
         else:
@@ -236,7 +231,7 @@ def run_gui(
         schedule = schedule_day(doctors, assistants, cabinets,
                                 opening_hour, closing_hour, slot_minutes)
 
-        # actualizare Program.csv DOAR pentru doctorul selectat
+
         appts = read_appointments(program_csv)
         updated = False
         for ap in appts:
@@ -253,8 +248,6 @@ def run_gui(
             p("Toți")
 
     btn_apply.config(command=on_apply)
-
-    # ── Șterge programarea ─────────────────────────────────────────
     def on_delete():
         nonlocal schedule, previous_schedule
         name = selected_doctor_var.get()
