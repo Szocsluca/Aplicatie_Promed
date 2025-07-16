@@ -1,14 +1,9 @@
 # Programator Promed
 
-Scheduler de medici și asistente cu interfață grafică în `tkinter`.
+Scheduler de medici și asistente pentru o policlinica  cu interfață grafică în `tkinter`.
 
 ## Funcționalități
-- Programare automată pe baza specialităților
-- Interfață grafică prietenoasă
+- Programare automată pe baza specialităților si a orarului de munca
+- Interfață grafică 
 - Export program în CSV
 
-## Cum rulez?
-1. Instalează Python 3.x
-2. Rulează:
-   ```bash
-   python Scheduler.py
