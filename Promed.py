@@ -1,13 +1,3 @@
-"""
-Daily scheduler – doctor & assistant placed together (greedy coverage)
-=====================================================================
-
-• slot‑by‑slot: medic + asistentă compatibilă, garantat cuplu;
-• fără dependenţe externe (doar matplotlib);
-• grafic cu două panouri (Medici / Asistente); pe benzile scurte eticheta
-  este afişată deasupra/dedesubt cu o săgeată către interval.
-"""
-
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
@@ -16,9 +6,6 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib import patheffects as pe
 
-# ---------------------------------------------------------------------------
-# Data classes
-# ---------------------------------------------------------------------------
 
 @dataclass
 class Doctor:
@@ -49,10 +36,6 @@ class Appointment:
     def __repr__(self):
         return f"Appointment(ID={self.doctor_id}, Date={self.date}, Interval={self.time_interval})"
 
-
-# ---------------------------------------------------------------------------
-# Scheduler
-# ---------------------------------------------------------------------------
 
 def schedule_day(
     doctors: List[Doctor],
@@ -144,7 +127,6 @@ def schedule_day(
                     f"Nu există combin. cab+asistentă pt {doc.name} la slot {t}"
                 )
 
-    # ------------------------------------------------------------------ Construim output-ul
     out_docs: Dict[str, List[Tuple[str, int]]] = {}
     for d, doc in enumerate(doctors):
         out_docs[doc.name] = [
